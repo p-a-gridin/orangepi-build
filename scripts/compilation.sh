@@ -962,8 +962,10 @@ advanced_patch()
 		"$EXTER/patch/$dest/$family:[\e[32ml\e[0m][\e[32mc\e[0m]"
 		)
 	local links=()
+	local old_shopt
 
 	# required for "for" command
+	old_shopt=$(shopt -p nullglob dotglob)
 	shopt -s nullglob dotglob
 	# get patch file names
 	for dir in "${dirs[@]}"; do
@@ -994,6 +996,8 @@ advanced_patch()
 			fi
 		done
 	done
+
+	eval "${old_shopt}"
 }
 
 # process_patch_file <file> <description>

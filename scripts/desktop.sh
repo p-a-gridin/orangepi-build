@@ -260,7 +260,9 @@ add_desktop_package_sources() {
 	ls -l "${SDCARD}/usr/share/keyrings" >> "${DEST}"/${LOG_SUBPATH}/install.log
 	ls -l "${SDCARD}/etc/apt/sources.list.d" >> "${DEST}"/${LOG_SUBPATH}/install.log
 	[[ -f "${SDCARD}/etc/apt/sources.list" ]] && cat "${SDCARD}/etc/apt/sources.list" >> "${DEST}"/${LOG_SUBPATH}/install.log
-	cat "${SDCARD}/etc/apt/sources.list.d/"*.list "${SDCARD}/etc/apt/sources.list.d/"*.sources 2>/dev/null >> "${DEST}"/${LOG_SUBPATH}/install.log
+	if compgen -G "${SDCARD}/etc/apt/sources.list.d/*.list" >/dev/null || compgen -G "${SDCARD}/etc/apt/sources.list.d/*.sources" >/dev/null; then
+		cat "${SDCARD}/etc/apt/sources.list.d/"*.list "${SDCARD}/etc/apt/sources.list.d/"*.sources 2>/dev/null >> "${DEST}"/${LOG_SUBPATH}/install.log
+	fi
 
 }
 
